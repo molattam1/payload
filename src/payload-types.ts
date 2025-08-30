@@ -491,9 +491,13 @@ export interface Homepage {
     title: string;
     subtitle?: string | null;
     primaryCTA?: string | null;
-    primaryLink?: string | null;
     secondaryCTA?: string | null;
+    primaryLink?: string | null;
     secondaryLink?: string | null;
+    badge?: string | null;
+    tag1?: string | null;
+    tag2?: string | null;
+    tag3?: string | null;
     deviceImage?: (string | null) | Media;
   };
   features?:
@@ -505,21 +509,39 @@ export interface Homepage {
         id?: string | null;
       }[]
     | null;
-  gallery?:
-    | {
-        label?: string | null;
-        image?: (string | null) | Media;
-        id?: string | null;
-      }[]
-    | null;
-  testimonials?:
-    | {
-        quote: string;
-        name: string;
-        role?: string | null;
-        id?: string | null;
-      }[]
-    | null;
+  gallery: {
+    title: string;
+    description?: string | null;
+    items?:
+      | {
+          label?: string | null;
+          image?: (string | null) | Media;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  testimonials?: {
+    title?: string | null;
+    description?: string | null;
+    items?:
+      | {
+          quote: string;
+          name: string;
+          role?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  faq?: {
+    title?: string | null;
+    items?:
+      | {
+          q: string;
+          a: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
   cta?: {
     headline?: string | null;
     description?: string | null;
@@ -689,9 +711,13 @@ export interface HomepageSelect<T extends boolean = true> {
         title?: T;
         subtitle?: T;
         primaryCTA?: T;
-        primaryLink?: T;
         secondaryCTA?: T;
+        primaryLink?: T;
         secondaryLink?: T;
+        badge?: T;
+        tag1?: T;
+        tag2?: T;
+        tag3?: T;
         deviceImage?: T;
       };
   features?:
@@ -706,17 +732,41 @@ export interface HomepageSelect<T extends boolean = true> {
   gallery?:
     | T
     | {
-        label?: T;
-        image?: T;
-        id?: T;
+        title?: T;
+        description?: T;
+        items?:
+          | T
+          | {
+              label?: T;
+              image?: T;
+              id?: T;
+            };
       };
   testimonials?:
     | T
     | {
-        quote?: T;
-        name?: T;
-        role?: T;
-        id?: T;
+        title?: T;
+        description?: T;
+        items?:
+          | T
+          | {
+              quote?: T;
+              name?: T;
+              role?: T;
+              id?: T;
+            };
+      };
+  faq?:
+    | T
+    | {
+        title?: T;
+        items?:
+          | T
+          | {
+              q?: T;
+              a?: T;
+              id?: T;
+            };
       };
   cta?:
     | T

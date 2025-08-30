@@ -3,9 +3,9 @@ import type { GlobalConfig } from "payload";
 
 export const HomePage: GlobalConfig = {
   slug: "homepage",
-  label: "Homepage", // 👈 optional, but makes admin nicer
+  label: "Homepage",
   access: {
-    read: () => true, // public
+    read: () => true,
   },
   fields: [
     // HERO
@@ -17,13 +17,17 @@ export const HomePage: GlobalConfig = {
         { name: "title", type: "text", required: true, localized: true },
         { name: "subtitle", type: "textarea", localized: true },
         { name: "primaryCTA", type: "text", localized: true },
-        { name: "primaryLink", type: "text" },
         { name: "secondaryCTA", type: "text", localized: true },
+        { name: "primaryLink", type: "text" },
         { name: "secondaryLink", type: "text" },
+        { name: "badge", type: "text", localized: true },
+        { name: "tag1", type: "text", localized: true},
+        { name: "tag2", type: "text", localized: true},
+        { name: "tag3", type: "text", localized: true},
         {
           name: "deviceImage",
           type: "upload",
-          relationTo: "media", // make sure your media collection exists
+          relationTo: "media",
         },
       ],
     },
@@ -59,31 +63,97 @@ export const HomePage: GlobalConfig = {
     // SHOWCASE / GALLERY
     {
       name: "gallery",
-      type: "array",
+      type: "group",
       label: "Gallery",
-      labels: {
-        singular: "Gallery Item",
-        plural: "Gallery Items",
-      },
       fields: [
-        { name: "label", type: "text", localized: true },
-        { name: "image", type: "upload", relationTo: "media" },
+        { name: "title", type: "text", required: true, localized: true },
+        { name: "description", type: "textarea", localized: true },
+        {
+          name: "items",
+          type: "array",
+          label: "Items",
+          labels: {
+            singular: "Item",
+            plural: "Items",
+          },
+          fields: [
+            { name: "label", type: "text", localized: true },
+            { name: "image", type: "upload", relationTo: "media" },
+          ]
+        }
       ],
     },
 
     // TESTIMONIALS
     {
       name: "testimonials",
-      type: "array",
-      label: "Testimonials",
-      labels: {
-        singular: "Testimonial",
-        plural: "Testimonials",
-      },
+      type: "group",
+      label: "Testimonials Section",
       fields: [
-        { name: "quote", type: "textarea", required: true, localized: true },
-        { name: "name", type: "text", required: true, localized: true },
-        { name: "role", type: "text", localized: true },
+        {
+          name: "title",
+          type: "text",
+          label: "Section Title",
+          localized: true,
+        },
+        {
+          name: "description",
+          type: "textarea",
+          label: "Section Description",
+          localized: true,
+        },
+        {
+          name: "items",
+          type: "array",
+          label: "Testimonials",
+          labels: {
+            singular: "Testimonial",
+            plural: "Testimonials",
+          },
+          fields: [
+            { name: "quote", type: "textarea", required: true, localized: true },
+            { name: "name", type: "text", required: true, localized: true },
+            { name: "role", type: "text", required: false, localized: true },
+          ],
+        },
+      ],
+    },
+
+    // FAQ
+    {
+      name: "faq",
+      type: "group",
+      label: "FAQ Section",
+      fields: [
+        {
+          name: "title",
+          type: "text",
+          label: "Section Title",
+          localized: true,
+          defaultValue: "Frequently Asked",
+        },
+        {
+          name: "items",
+          type: "array",
+          label: "FAQ Items",
+          labels: { singular: "FAQ Item", plural: "FAQ Items" },
+          fields: [
+            {
+              name: "q",
+              type: "text",
+              label: "Question",
+              required: true,
+              localized: true,
+            },
+            {
+              name: "a",
+              type: "textarea",
+              label: "Answer",
+              required: true,
+              localized: true,
+            },
+          ],
+        },
       ],
     },
 
